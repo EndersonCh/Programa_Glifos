@@ -29,5 +29,5 @@ Este programa convierte números arábigos a su representación glifica de Aethe
 ## Instalación
 1. Clona el repositorio:
    ```bash
-   git clone https://github.com/tu_usuario/conversor_glifos.git
-   cd conversor_glifos
+   git clone https://github.com/EndersonCh/Programa_Glifos.git
+   cd Programa_Glifos
