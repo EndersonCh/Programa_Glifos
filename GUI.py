@@ -73,9 +73,9 @@ class aplicacion:
             self.trans.cargar_datos(self.ruta)
             self.caja_1.config(state='normal')
             self.caja_1.delete("1.0",tk.END)
-            self.caja_1.insert(1.0,"Numeros:\n")
+            self.caja_1.insert(1.0,"Numeros:\n\n")
             for linea in self.trans.numeros:
-                self.caja_1.insert('end',f"{linea}\n")    
+                self.caja_1.insert('end',f"{linea}\n\n")    
             
             self.caja_1.config(state='disabled')
             self.boton_5.config(state="disabled")            
@@ -86,10 +86,10 @@ class aplicacion:
     
         self.caja_1.config(state="normal")
         self.caja_1.delete("1.0",tk.END)
-        self.caja_1.insert(1.0,"Numeros y Glifos\n")
+        self.caja_1.insert(1.0,"Numeros y Glifos\n\n")
         for linea,numero in zip(self.trans.glifos, self.trans.numeros):
             linea="".join(linea)
-            self.caja_1.insert("end",f"--> {numero}: {linea} \n")    
+            self.caja_1.insert("end",f" {numero}: {linea} \n\n")    
         
         self.caja_1.config(state='disabled')
         self.boton_2.config(state="disabled")
@@ -123,7 +123,7 @@ class aplicacion:
                 self.trans.individual(nume)
                 self.caja_1.config(state="normal")
                 glif="".join(self.trans.glifo)
-                self.caja_1.insert("end",f"--> {nume}: {glif}\n")
+                self.caja_1.insert("end",f" {nume}: {glif}\n\n")
                 self.boton_1.config(state="disabled")
                 self.boton_4.config(state="active",relief=tk.FLAT)
                 self.boton_3.config(state="active",relief=tk.FLAT)
@@ -145,20 +145,18 @@ class aplicacion:
     def crear_entorno(self): # creacion de parte grafica(Botones, textos, imagenes)
         canvas=tk.Canvas(self.ventana,
             bg=self.color_fondo,
-            height=100,  # Altura fija
+            height=100,  
             highlightthickness=0
             
         )
         canvas.pack(fill="both",expand=True)
         
         canvas_cabecera=tk.Canvas(canvas,
-            height=70,  # Altura fija
+            height=70,  
             highlightthickness=0,
             bg=self.color_fondo
-                                )
+            )
         canvas_cabecera.pack(side="top", fill="x")
-        ancho =canvas_cabecera.winfo_width()
-        alto = canvas_cabecera.winfo_height()
         
         self.ima_cabecera=self.cargar_imagen("cabecera.png")
         
@@ -167,23 +165,6 @@ class aplicacion:
             image=self.ima_cabecera,  
             anchor="center"
             )
-        
-        self.ima_btn_salir=self.cargar_imagen("boton_salir.png")
-        boton_salir=tk.Button(
-            canvas_cabecera,
-            image=self.ima_btn_salir,
-            borderwidth=0,
-            highlightthickness=0,
-            command=ventana.destroy,
-            relief="flat",
-            bg=self.color_fondo
-                )
-        boton_salir.place(
-            x=637.3,
-            y=37.8,
-            width=216,
-            height=26,
-            anchor="center")
 
         self.ima_titulo=self.cargar_imagen("titulo.png")
         titulo=canvas.create_image(
@@ -232,10 +213,27 @@ class aplicacion:
             158,551.39,
             image=self.ima_limpiar,
             anchor="center"
-        ) 
+        )
+        
+        self.ima_btn_salir=self.cargar_imagen("boton_salir.png") #Creación de botones
+        boton_salir=tk.Button(
+            canvas_cabecera,
+            image=self.ima_btn_salir,
+            borderwidth=0,
+            highlightthickness=0,
+            command=ventana.destroy,
+            relief="flat",
+            bg=self.color_fondo
+                )
+        boton_salir.place(
+            x=637.3,
+            y=37.8,
+            width=216,
+            height=26,
+            anchor="center")
+         
         self.ima_btn_1=self.cargar_imagen("boton_1.png")
         self.boton_1=tk.Button(
-            
             image=self.ima_btn_1,
             borderwidth=0,
             highlightthickness=0,
@@ -250,10 +248,10 @@ class aplicacion:
             width=88,
             height=40,
             anchor="center"
-        )       
+        )
+               
         self.ima_btn_2=self.cargar_imagen("boton_4.png")
         self.boton_2=tk.Button(
-            
             image=self.ima_btn_2,
             borderwidth=0,
             highlightthickness=0,
@@ -261,7 +259,7 @@ class aplicacion:
             relief=tk.FLAT,
             bg=self.color_fondo,
             activebackground=self.color_fondo
-                )
+            )
         self.boton_2.place(
             x=331.8,
             y=419.6,
@@ -269,7 +267,8 @@ class aplicacion:
             height=40,
             anchor="center"
         )  
-        self.boton_2.config(state="disabled")     
+        self.boton_2.config(state="disabled")
+             
         self.ima_btn_3=self.cargar_imagen("boton_3.png")
         self.boton_3=tk.Button(
             
@@ -288,7 +287,8 @@ class aplicacion:
             height=40,
             anchor="center"
         )  
-        self.boton_3.config(state="disabled")     
+        self.boton_3.config(state="disabled")
+             
         self.ima_btn_4=self.cargar_imagen("boton_2.png")
         self.boton_4=tk.Button(
             
@@ -308,6 +308,7 @@ class aplicacion:
             anchor="center"
         )   
         self.boton_4.config(state="disabled") 
+        
         self.ima_btn_5=self.cargar_imagen("boton_5.png")
         self.boton_5=tk.Button(
             
@@ -325,21 +326,20 @@ class aplicacion:
             width=48,
             height=36,
             anchor="center"
-        )   
-        self.caja_1=tk.Text(
+        ) 
+          
+        self.caja_1=tk.Text( #Elementos de captura y salida de texto
             canvas,
             width=50,
             height=20,
-              # Opciones: NONE, CHAR, WORD
-            font=('Helvetica', 14),
+            font=('Helvetica bold', 16),
             highlightthickness=0,
             padx=10,
             pady=10,
             bd=0,                  
             state='disabled',      
             bg="#FAFAFA",   
-            fg=self.color_negro 
-            
+            fg=self.color_negro      
         )
         self.caja_1.place(
             x=571,
@@ -362,9 +362,7 @@ class aplicacion:
             bg="#FAFAFA",
             font=('Helvetica', 14),
             bd=0,
-            relief="flat",
-            
-            
+            relief="flat"
             )
         self.entrada.insert(0, "Escribe un numero!")
         self.entrada.bind("<FocusIn>", self.al_entrar)
